@@ -386,3 +386,6 @@ INSERT INTO paradas (viaje_id, localidad_id, hora) VALUES
 (13, 26, '04:20'),
 (13, 25, '04:25'),
 (13, 24, '04:30');
+
+ALTER TABLE paradas DROP COLUMN ingresa_terminal;
+ALTER TABLE paradas ADD COLUMN punto_parada VARCHAR(100) DEFAULT 'Terminal';
