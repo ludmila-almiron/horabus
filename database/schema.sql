@@ -537,10 +537,9 @@ INSERT INTO viajes (empresa_id, tipo_dia) VALUES
 (4, 'todos');
 
 INSERT INTO paradas (viaje_id, localidad_id, hora, punto_parada) VALUES
--- Viaje 21 (07:00) Puerto Iguazú → Posadas
+INSERT INTO paradas (viaje_id, localidad_id, hora, punto_parada) VALUES
 (21, 46, '07:00', 'Terminal'),
-(21, 44, '10:00', 'Acceso'),
-(21, 43, '10:15', 'Terminal'),
+(21, 43, '07:45', 'Terminal'),
 (21, 42, '08:05', 'Terminal'),
 (21, 41, '08:10', 'Terminal'),
 (21, 40, '08:20', 'Terminal'),
@@ -558,7 +557,7 @@ INSERT INTO paradas (viaje_id, localidad_id, hora, punto_parada) VALUES
 (21, 28, '11:20', 'Terminal'),
 (21, 26, '11:40', 'Terminal'),
 (21, 25, '11:50', 'Terminal'),
-(21, 24, '12:20', 'Terminal'),
+(21, 24, '12:20', 'Terminal');
 
 -- Viaje 22 (09:00) Puerto Iguazú → Posadas
 (22, 46, '09:00', 'Terminal'),
@@ -645,3 +644,65 @@ INSERT INTO paradas (viaje_id, localidad_id, hora, punto_parada) VALUES
 (20, 26, '07:45', 'Terminal'),
 (20, 25, '07:55', 'Terminal'),
 (20, 24, '08:15', 'Terminal'),
+
+DELETE FROM paradas WHERE viaje_id = 24 AND localidad_id IN (43, 30);
+
+INSERT INTO paradas (viaje_id, localidad_id, hora, punto_parada) VALUES
+-- Viaje 25 (03:00) Posadas → Puerto Iguazú
+(25, 24, '03:00', 'Terminal'),
+(25, 27, '03:45', 'Terminal'),
+(25, 28, '04:15', 'Terminal'),
+(25, 31, '04:45', 'Terminal'),
+(25, 33, '05:00', 'Terminal'),
+(25, 34, '05:25', 'Terminal'),
+(25, 39, '06:40', 'Terminal'),
+(25, 43, '08:05', 'Terminal'),
+(25, 44, '08:00', 'Terminal'),
+(25, 45, '08:15', 'Terminal'),
+
+-- Viaje 26 (04:30) Posadas → Puerto Iguazú
+(26, 24, '04:30', 'Terminal'),
+(26, 27, '05:15', 'Terminal'),
+(26, 28, '05:45', 'Terminal'),
+(26, 31, '06:20', 'Terminal'),
+(26, 33, '06:30', 'Terminal'),
+(26, 34, '07:00', 'Terminal'),
+(26, 39, '08:00', 'Terminal'),
+(26, 43, '09:25', 'Terminal'),
+(26, 44, '09:30', 'Terminal'),
+(26, 45, '09:45', 'Terminal'),
+
+-- Viaje 27 (08:15) Posadas → Puerto Iguazú
+(27, 24, '08:15', 'Terminal'),
+(27, 27, '09:00', 'Terminal'),
+(27, 28, '09:10', 'Terminal'),
+(27, 31, '09:45', 'Terminal'),
+(27, 33, '10:00', 'Terminal'),
+(27, 34, '10:30', 'Terminal'),
+(27, 39, '11:30', 'Terminal'),
+(27, 43, '12:30', 'Terminal'),
+(27, 44, '13:00', 'Terminal'),
+(27, 45, '13:15', 'Terminal'),
+
+-- Viaje 28 (09:40) Posadas → Puerto Iguazú
+(28, 24, '09:40', 'Terminal'),
+(28, 27, '10:25', 'Terminal'),
+(28, 28, '10:40', 'Terminal'),
+(28, 31, '11:20', 'Terminal'),
+(28, 33, '11:25', 'Terminal'),
+(28, 34, '11:55', 'Terminal'),
+(28, 39, '13:20', 'Terminal'),
+(28, 43, '14:15', 'Terminal'),
+(28, 44, '14:20', 'Terminal'),
+(28, 45, '14:45', 'Terminal'),
+
+-- Viaje 29 (15:20) Posadas → Puerto Iguazú
+(29, 24, '15:20', 'Terminal'),
+(29, 27, '16:05', 'Terminal'),
+(29, 28, '16:15', 'Terminal'),
+(29, 31, '16:50', 'Terminal'),
+(29, 33, '17:20', 'Terminal'),
+(29, 34, '17:35', 'Terminal'),
+(29, 39, '18:55', 'Terminal'),
+(29, 43, '20:20', 'Terminal'),
+(29, 44, '19:45', 'Terminal');
