@@ -1,52 +1,369 @@
-/* Estilos para toda la página */
-.app {
+/* ============================================================
+   HoraBus · App.css
+   Paleta: verde selva #2D6A4F, lima #52B788, gris oscuro #1C1C1C
+   Tipografía: Inter (sistema), escala clara para horarios
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --verde: #2D6A4F;
+  --verde-claro: #52B788;
+  --verde-hover: #245a42;
+  --lima: #95D5B2;
+  --fondo: #F7F9F7;
+  --fondo-tarjeta: #ffffff;
+  --texto: #1C1C1C;
+  --texto-suave: #5a6a62;
+  --borde: #d4e4db;
+  --radio: 10px;
+  --sombra: 0 2px 12px rgba(45, 106, 79, 0.10);
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  min-height: 100vh;
+}
+
+/* ── Layout general ─────────────────────────────────────── */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+
+.header {
+  background: #2d6a4f;
+  padding: 4px 24px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #d3d3d3; /* Fondo gris claro para la página */
-  height: 100vh; /* Usa toda la altura de la pantalla */
-  width:100vw;
-  padding: 2em;
-  box-sizing: border-box;
-  gap: 3em;
-}
-
-/* Logo */
-.logo-container {
-  background-color: white; /* Fondo gris oscuro para el logo */
+  gap: 10px;
 }
 
 .logo {
-  width: 300px; /* Ajusta el tamaño del logo */
-  height: auto;
+  height: 120px;
+  width: auto;
+  display: block;
 }
 
-/* Contenedor de los botones de selección */
-.selector-container {
+.tagline {
+  color: var(--lima);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
+/* ── Main ────────────────────────────────────────────────── */
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 16px 48px;
+}
+
+/* ── Buscador ────────────────────────────────────────────── */
+
+.buscador {
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 24px;
   display: flex;
-  flex-direction:row;
-  justify-content:space-around;
-  gap: 1em; /* Espacio entre botones */
-  background-color: #6a6c6d; /* Fondo gris oscuro */
-  padding: 1em 1.5em;
-  border-radius: 15px;
-  width: 50%; /* Ocupa el 80% del ancho de su elemento padre */
-   max-width: 1200px; /* Limita el ancho máximo a 1200px */
-  height: 10%;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-/* Estilos para cada botón */
-.selector {
-  background-color: #d9d9d9; /* Fondo gris claro */
-  border: none;
-  font-size: 1em;
-  font-weight: bold;
-  color: #000;
-  border-radius: 10px;
+.campo {
+  flex: 1;
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--verde);
+}
+
+.campo select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--fondo) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232D6A4F' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;
+  border: 1.5px solid var(--borde);
+  border-radius: 8px;
+  padding: 10px 36px 10px 12px;
+  font-size: 0.95rem;
+  color: var(--texto);
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: border-color 0.15s;
+  width: 100%;
 }
 
-.selector:hover {
-  background-color: #b3b3b3; /* Color de hover */
+.campo select:focus {
+  outline: none;
+  border-color: var(--verde-claro);
+}
+
+.campo select option:disabled {
+  color: #a0a0a0;
+}
+
+/* ── Botón intercambiar ──────────────────────────────────── */
+
+.btn-intercambiar {
+  background: none;
+  border: 1.5px solid var(--borde);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 1.1rem;
+  color: var(--verde);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+  align-self: flex-end;
+  line-height: 1;
+}
+
+.btn-intercambiar:hover {
+  background: var(--lima);
+  border-color: var(--verde-claro);
+}
+
+/* ── Botón buscar ────────────────────────────────────────── */
+
+.btn-buscar {
+  background: var(--verde);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+  align-self: flex-end;
+  white-space: nowrap;
+}
+
+.btn-buscar:hover:not(:disabled) {
+  background: var(--verde-hover);
+}
+
+.btn-buscar:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── Instrucción inicial ─────────────────────────────────── */
+
+.instruccion {
+  text-align: center;
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+  margin-top: 32px;
+}
+
+/* ── Resultados ──────────────────────────────────────────── */
+
+.resultados {
+  margin-top: 28px;
+}
+
+.resultados-titulo {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--texto);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.resultados-cantidad {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--verde);
+  background: var(--lima);
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* ── Sin resultados ──────────────────────────────────────── */
+
+.sin-resultados {
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ── Tarjetas de resultado ───────────────────────────────── */
+
+.tarjetas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tarjeta {
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: var(--sombra);
+  transition: border-color 0.15s;
+}
+
+.tarjeta:hover {
+  border-color: var(--verde-claro);
+}
+
+.tarjeta-horas {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hora-bloque {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.hora {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--texto);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.hora-label {
+  font-size: 0.68rem;
+  color: var(--texto-suave);
+  text-transform: lowercase;
+}
+
+.flecha {
+  color: var(--verde-claro);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.tarjeta-empresa {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--verde);
+  background: #edf7f2;
+  padding: 4px 12px;
+  border-radius: 6px;
+  text-align: right;
+  flex-shrink: 0;
+  max-width: 140px;
+  line-height: 1.4;
+}
+
+/* ── Aviso orientativo ───────────────────────────────────── */
+
+.aviso {
+  margin-top: 16px;
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+  line-height: 1.5;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+
+.footer {
+  background: var(--verde);
+  color: var(--lima);
+  text-align: center;
+  font-size: 0.78rem;
+  padding: 14px 16px;
+  opacity: 0.9;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 560px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .buscador {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .btn-intercambiar {
+    align-self: center;
+    transform: rotate(90deg);
+  }
+
+  .btn-buscar {
+    width: 100%;
+    padding: 13px;
+  }
+
+  .resultados-titulo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tarjeta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .tarjeta-empresa {
+    max-width: none;
+    width: 100%;
+    text-align: left;
+  }
+
+  .hora {
+    font-size: 1.3rem;
+  }
 }
