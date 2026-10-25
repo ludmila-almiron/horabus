@@ -181,6 +181,169 @@ body {
   cursor: not-allowed;
 }
 
+/* ── Filtros ─────────────────────────────────────────────── */
+
+.filtros {
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 16px 20px;
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.filtros-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filtros-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--verde);
+}
+
+.filtros-grupo--hora {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Slider de rango dual */
+.slider-rango {
+  position: relative;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+/* Track base (gris) */
+.slider-rango::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--borde);
+  border-radius: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+/* Track coloreado entre los dos handles */
+.slider-track-fill {
+  position: absolute;
+  height: 6px;
+  background: var(--verde-claro);
+  border-radius: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Ambos inputs superpuestos */
+.slider-input {
+  position: absolute;
+  width: 100%;
+  height: 6px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  pointer-events: none;
+  z-index: 3;
+  outline: none;
+}
+
+/* Thumb compartido */
+.slider-input::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--verde);
+  border: 3px solid #fff;
+  box-shadow: 0 1px 6px rgba(45,106,79,0.35);
+  cursor: pointer;
+  pointer-events: all;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.slider-input::-webkit-slider-thumb:hover {
+  background: var(--verde-hover);
+  transform: scale(1.12);
+}
+
+.slider-input::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--verde);
+  border: 3px solid #fff;
+  box-shadow: 0 1px 6px rgba(45,106,79,0.35);
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.filtros-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filtro-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--texto);
+  cursor: pointer;
+  padding: 6px 12px;
+  border: 1.5px solid var(--borde);
+  border-radius: 20px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.filtro-checkbox:hover {
+  border-color: var(--verde-claro);
+}
+
+.filtro-checkbox input[type="checkbox"] {
+  accent-color: var(--verde);
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+.filtro-checkbox:has(input:checked) {
+  border-color: var(--verde);
+  background: #edf7f2;
+}
+
+.btn-limpiar {
+  background: none;
+  border: 1.5px solid var(--borde);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+  cursor: pointer;
+  align-self: flex-end;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.btn-limpiar:hover {
+  border-color: var(--verde-claro);
+  color: var(--verde);
+}
+
 /* ── Instrucción inicial ─────────────────────────────────── */
 
 .instruccion {

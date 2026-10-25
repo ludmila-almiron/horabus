@@ -1,9 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { supabase } from './supabase'
 import logo from './pictures/horabuslogo.png'
+import Buscador from './components/Buscador'
+import Filtros from './components/Filtros'
+import Resultados from './components/Resultados'
 import './App.css'
 
 export default function App() {
+  // ── Estado general ──────────────────────────────────────
   const [localidades, setLocalidades] = useState([])
   const [origen, setOrigen] = useState('')
   const [destino, setDestino] = useState('')
@@ -11,6 +15,11 @@ export default function App() {
   const [cargando, setCargando] = useState(false)
   const [buscado, setBuscado] = useState(false)
 
+  // ── Estado de filtros ───────────────────────────────────
+  const [rangoHora, setRangoHora] = useState([0, 1440]) // minutos desde medianoche
+  const [empresasSeleccionadas, setEmpresasSeleccionadas] = useState([])
+
+  // ── Carga inicial de localidades ────────────────────────
   useEffect(() => {
     supabase
       .from('localidades')
@@ -19,11 +28,36 @@ export default function App() {
       .then(({ data }) => setLocalidades(data || []))
   }, [])
 
+  // ── Helpers de conversión de hora ───────────────────────
+  const horaAMinutos = (hora) => {
+    const [h, m] = hora.split(':').map(Number)
+    return h * 60 + m
+  }
+
+  // ── Acciones del buscador ───────────────────────────────
+  const resetFiltros = () => {
+    setRangoHora([0, 1440])
+    setEmpresasSeleccionadas([])
+  }
+
+  const handleOrigen = (val) => {
+    setOrigen(val)
+    setResultados(null)
+    setBuscado(false)
+  }
+
+  const handleDestino = (val) => {
+    setDestino(val)
+    setResultados(null)
+    setBuscado(false)
+  }
+
   const intercambiar = () => {
     setOrigen(destino)
     setDestino(origen)
     setResultados(null)
     setBuscado(false)
+    resetFiltros()
   }
 
   const buscar = async () => {
@@ -31,6 +65,7 @@ export default function App() {
     setCargando(true)
     setBuscado(true)
     setResultados(null)
+    resetFiltros()
 
     const { data: paradasOrigen } = await supabase
       .from('paradas')
@@ -82,11 +117,39 @@ export default function App() {
     setCargando(false)
   }
 
+  // ── Lógica de filtros ───────────────────────────────────
+  const empresasDisponibles = useMemo(() => {
+    if (!resultados) return []
+    return [...new Set(resultados.map(r => r.empresa))].sort()
+  }, [resultados])
+
+  const toggleEmpresa = (empresa) => {
+    setEmpresasSeleccionadas(prev =>
+      prev.includes(empresa)
+        ? prev.filter(e => e !== empresa)
+        : [...prev, empresa]
+    )
+  }
+
+  const resultadosFiltrados = useMemo(() => {
+    if (!resultados) return []
+    return resultados.filter(r => {
+      const minSalida = horaAMinutos(r.salida)
+      if (minSalida < rangoHora[0] || minSalida > rangoHora[1]) return false
+      if (empresasSeleccionadas.length > 0 && !empresasSeleccionadas.includes(r.empresa)) return false
+      return true
+    })
+  }, [resultados, rangoHora, empresasSeleccionadas])
+
+  const hayFiltrosActivos = rangoHora[0] > 0 || rangoHora[1] < 1440 || empresasSeleccionadas.length > 0
+
+  const limpiarFiltros = () => resetFiltros()
+
+  // ── Helpers de presentación ─────────────────────────────
   const nombreLocalidad = (id) =>
     localidades.find(l => l.id === parseInt(id))?.nombre || ''
 
-  const formatHora = (hora) => hora?.slice(0, 5) || ''
-
+  // ── Render ──────────────────────────────────────────────
   return (
     <div className="page">
       <header className="header">
@@ -95,78 +158,36 @@ export default function App() {
       </header>
 
       <main className="main">
-        <div className="buscador">
-          <div className="campo">
-            <label>Desde</label>
-            <select value={origen} onChange={e => { setOrigen(e.target.value); setResultados(null); setBuscado(false) }}>
-              <option value="" disabled>Seleccioná origen</option>
-              {localidades.map(l => (
-                <option key={l.id} value={l.id} disabled={l.id === parseInt(destino)}>{l.nombre}</option>
-              ))}
-            </select>
-          </div>
+        <Buscador
+          localidades={localidades}
+          origen={origen}
+          destino={destino}
+          cargando={cargando}
+          onOrigen={handleOrigen}
+          onDestino={handleDestino}
+          onIntercambiar={intercambiar}
+          onBuscar={buscar}
+        />
 
-          <button className="btn-intercambiar" onClick={intercambiar} title="Intercambiar">⇄</button>
-
-          <div className="campo">
-            <label>Hasta</label>
-            <select value={destino} onChange={e => { setDestino(e.target.value); setResultados(null); setBuscado(false) }}>
-              <option value="" disabled>Seleccioná destino</option>
-              {localidades.map(l => (
-                <option key={l.id} value={l.id} disabled={l.id === parseInt(origen)}>{l.nombre}</option>
-              ))}
-            </select>
-          </div>
-
-          <button
-            className="btn-buscar"
-            onClick={buscar}
-            disabled={!origen || !destino || cargando}
-          >
-            {cargando ? 'Buscando...' : 'Buscar'}
-          </button>
-        </div>
+        {buscado && !cargando && resultados?.length > 0 && (
+          <Filtros
+            rangoHora={rangoHora}
+            setRangoHora={setRangoHora}
+            empresasDisponibles={empresasDisponibles}
+            empresasSeleccionadas={empresasSeleccionadas}
+            toggleEmpresa={toggleEmpresa}
+            hayFiltrosActivos={hayFiltrosActivos}
+            limpiarFiltros={limpiarFiltros}
+          />
+        )}
 
         {buscado && !cargando && (
-          <div className="resultados">
-            <h2 className="resultados-titulo">
-              {nombreLocalidad(origen)} → {nombreLocalidad(destino)}
-              <span className="resultados-cantidad">
-                {resultados?.length === 0
-                  ? 'Sin resultados'
-                  : `${resultados?.length} servicio${resultados?.length !== 1 ? 's' : ''}`}
-              </span>
-            </h2>
-
-            {resultados?.length === 0 ? (
-              <div className="sin-resultados">
-                No encontramos servicios para ese recorrido. Probá cambiando el origen o destino.
-              </div>
-            ) : (
-              <div className="tarjetas">
-                {resultados?.map((r, i) => (
-                  <div key={i} className="tarjeta">
-                    <div className="tarjeta-horas">
-                      <div className="hora-bloque">
-                        <span className="hora">{formatHora(r.salida)}</span>
-                        <span className="hora-label">salida</span>
-                      </div>
-                      <div className="flecha">→</div>
-                      <div className="hora-bloque">
-                        <span className="hora">{formatHora(r.llegada)}</span>
-                        <span className="hora-label">{r.punto_parada || 'terminal'}</span>
-                      </div>
-                    </div>
-                    <div className="tarjeta-empresa">{r.empresa}</div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <p className="aviso">
-              * Los horarios son orientativos. Verificá con la empresa antes de viajar.
-            </p>
-          </div>
+          <Resultados
+            origen={nombreLocalidad(origen)}
+            destino={nombreLocalidad(destino)}
+            resultadosFiltrados={resultadosFiltrados}
+            hayFiltrosActivos={hayFiltrosActivos}
+          />
         )}
 
         {!buscado && (
