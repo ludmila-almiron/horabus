@@ -1782,3 +1782,24 @@ INSERT INTO paradas (viaje_id, localidad_id, hora) VALUES
 (58, 44, '22:55:00'),
 (58, 45, '23:10:00'),
 (58, 46, '23:30:00');
+
+SELECT column_name FROM information_schema.columns WHERE table_name = 'empresas' ORDER BY ordinal_position;
+
+ALTER TABLE empresas 
+ADD COLUMN telefono TEXT,
+ADD COLUMN web TEXT,
+ADD COLUMN email TEXT;
+
+UPDATE empresas SET telefono = '+5491160189000', web = 'https://www.crucerodelnorte.com.ar/', email = 'info@crucerodelnorte.com.ar' WHERE nombre = 'Crucero del Norte';
+
+UPDATE empresas SET telefono = '+54 9 3764 90-8730', email = 'martignonihnossrl@hotmail.com' WHERE nombre = 'Empresa Argentina';
+
+UPDATE empresas SET telefono = '+54 9 3764 15-7426 / 376-4596359', email = 'mhorianskisrl@arnet.com.ar' WHERE nombre = 'Horianski';
+
+UPDATE empresas SET telefono = '+54 9 3764 29-2915', web = 'https://www.riouruguaybus.com.ar', email = 'info@riouruguaybus.com.ar' WHERE nombre = 'Río Uruguay';
+
+UPDATE empresas SET web = 'https://elcometabis.com/', email = 'atencionalcliente@elcometabis.com' WHERE nombre = 'El Cometa';
+
+UPDATE empresas SET telefono = '3765 268723 / 3764 913673', email = 'oroverde.misiones@gmail.com' WHERE nombre = 'Oro Verde';
+
+UPDATE empresas SET telefono = '03751 48-0103', email = 'empresakrusesa@gmail.com' WHERE nombre = 'Kruse';

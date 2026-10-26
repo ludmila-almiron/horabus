@@ -4,6 +4,7 @@ import logo from './pictures/horabuslogo.png'
 import Buscador from './components/Buscador'
 import Filtros from './components/Filtros'
 import Resultados from './components/Resultados'
+import ContactoModal from './components/ContactoModal'
 import './App.css'
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
   const [resultados, setResultados] = useState(null)
   const [cargando, setCargando] = useState(false)
   const [buscado, setBuscado] = useState(false)
+  const [modalContacto, setModalContacto] = useState(false)
 
   // ── Estado de filtros ───────────────────────────────────
   const [rangoHora, setRangoHora] = useState([0, 1440]) // minutos desde medianoche
@@ -181,6 +183,12 @@ export default function App() {
           />
         )}
 
+        <div className="contacto-wrap">
+          <button className="btn-contacto" onClick={() => setModalContacto(true)}>
+            📋 Contacto empresas
+          </button>
+        </div>
+
         {buscado && !cargando && (
           <Resultados
             origen={nombreLocalidad(origen)}
@@ -198,6 +206,8 @@ export default function App() {
       <footer className="footer">
         HoraBus · Misiones · Los horarios pueden variar según el día y la empresa.
       </footer>
+
+      {modalContacto && <ContactoModal onClose={() => setModalContacto(false)} />}
     </div>
   )
 }
