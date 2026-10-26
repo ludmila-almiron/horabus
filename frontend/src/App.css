@@ -659,3 +659,243 @@ body {
   font-size: 0.85rem;
   flex-shrink: 0;
 }
+
+/* ── Avisos ──────────────────────────────────────────────── */
+
+.avisos-estado {
+  color: var(--texto-suave);
+  font-size: 0.88rem;
+  text-align: center;
+  padding: 16px 0;
+}
+
+.aviso-item {
+  border-bottom: 1px solid var(--borde);
+  padding-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.aviso-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.aviso-tipo {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--verde);
+}
+
+.aviso-empresa {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--texto);
+}
+
+.aviso-descripcion {
+  font-size: 0.88rem;
+  color: var(--texto);
+  line-height: 1.5;
+}
+
+.aviso-meta {
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+}
+
+.aviso-caduca {
+  color: #e07b39;
+}
+
+.aviso-imagen {
+  display: block;
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 6px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.avisos-footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.avisos-aclaracion {
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+  line-height: 1.4;
+  flex: 1;
+}
+
+.btn-nuevo-aviso {
+  background: var(--verde);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.btn-nuevo-aviso:hover:not(:disabled) {
+  background: var(--verde-hover);
+}
+
+.btn-nuevo-aviso:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-cancelar {
+  background: none;
+  border: 1.5px solid var(--borde);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  color: var(--texto-suave);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.btn-cancelar:hover {
+  border-color: var(--verde-claro);
+}
+
+/* ── Formulario nuevo aviso ──────────────────────────────── */
+
+.nuevo-aviso-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--verde);
+}
+
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--fondo) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232D6A4F' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;
+  border: 1.5px solid var(--borde);
+  border-radius: 8px;
+  padding: 10px 36px 10px 12px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--texto);
+  cursor: pointer;
+  width: 100%;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: var(--verde-claro);
+}
+
+.form-textarea {
+  border: 1.5px solid var(--borde);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: var(--texto);
+  background-color: var(--fondo);
+  resize: vertical;
+  width: 100%;
+  line-height: 1.5;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--verde-claro);
+}
+
+.form-hint {
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+  line-height: 1.4;
+}
+
+.form-hint--warning {
+  color: #e07b39;
+}
+
+.form-imagen-label {
+  display: block;
+  border: 1.5px dashed var(--borde);
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-imagen-placeholder {
+  color: var(--texto-suave);
+  font-size: 0.88rem;
+  padding: 20px;
+}
+
+.form-imagen-preview {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  display: block;
+}
+
+.form-imagen-quitar {
+  margin-top: 6px;
+  background: none;
+  border: none;
+  color: var(--texto-suave);
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.form-error {
+  font-size: 0.82rem;
+  color: #c0392b;
+  font-weight: 500;
+}
+
+.modal--chico {
+  max-width: 360px;
+}
+
+.form-fila {
+  display: flex;
+  gap: 12px;
+}
+
+.form-fila .form-grupo {
+  flex: 1;
+}

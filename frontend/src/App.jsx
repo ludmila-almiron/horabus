@@ -5,6 +5,7 @@ import Buscador from './components/Buscador'
 import Filtros from './components/Filtros'
 import Resultados from './components/Resultados'
 import ContactoModal from './components/ContactoModal'
+import AvisosModal from './components/AvisosModal'
 import './App.css'
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
   const [cargando, setCargando] = useState(false)
   const [buscado, setBuscado] = useState(false)
   const [modalContacto, setModalContacto] = useState(false)
+  const [modalAvisos, setModalAvisos] = useState(false)
 
   // ── Estado de filtros ───────────────────────────────────
   const [rangoHora, setRangoHora] = useState([0, 1440]) // minutos desde medianoche
@@ -184,6 +186,9 @@ export default function App() {
         )}
 
         <div className="contacto-wrap">
+          <button className="btn-contacto" onClick={() => setModalAvisos(true)}>
+            🔔 Avisos
+          </button>
           <button className="btn-contacto" onClick={() => setModalContacto(true)}>
             📋 Contacto empresas
           </button>
@@ -208,6 +213,7 @@ export default function App() {
       </footer>
 
       {modalContacto && <ContactoModal onClose={() => setModalContacto(false)} />}
+      {modalAvisos && <AvisosModal onClose={() => setModalAvisos(false)} />}
     </div>
   )
 }
