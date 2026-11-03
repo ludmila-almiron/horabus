@@ -48,9 +48,28 @@ Deno.serve(async (req) => {
       .delete()
       .eq('id', id)
   } else if (accion === 'listar') {
+    // Primero desactivar avisos cuyo caduca_at ya pasó
+    await supabase
+      .from('avisos')
+      .update({ activo: false })
+      .eq('activo', true)
+      .not('caduca_at', 'is', null)
+      .lt('caduca_at', new Date().toISOString())
+
+    // Devolver solo avisos vigentes: pendientes de aprobación o activos
     result = await supabase
       .from('avisos')
       .select('*')
+      .or('aprobado.eq.false,activo.eq.true')
+      .order('created_at', { ascending: false })
+  } else if (accion === 'historial') {
+    // Avisos caducados (activo=false) de los últimos 7 días
+    const hace7dias = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+    result = await supabase
+      .from('avisos')
+      .select('*')
+      .eq('activo', false)
+      .gte('created_at', hace7dias)
       .order('created_at', { ascending: false })
   } else if (accion === 'crear') {
     result = await supabase
