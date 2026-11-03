@@ -200,6 +200,7 @@ export default function AdminPanel() {
           >
             🕐 Horarios
           </button>
+          <a href="/" className="btn-cancelar" style={{ textDecoration: 'none' }}>← Volver al sitio</a>
           <button className="btn-cancelar" onClick={cerrarSesion}>Salir</button>
         </div>
       </header>
