@@ -141,7 +141,7 @@ export default function AdminPanel() {
     return (
       <div className="admin-login">
         <div className="admin-login-box">
-          <img src={logoAdmin} alt="Horabus Admin" className="admin-logo" />
+          <h1 className="admin-titulo">Horabus Admin</h1>
           <div className="form-grupo">
             <label className="form-label">Contraseña</label>
             <input
