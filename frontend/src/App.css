@@ -32,7 +32,7 @@ html, body, #root {
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   background: var(--fondo);
   color: var(--texto);
   min-height: 100vh;
@@ -1033,4 +1033,125 @@ body {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+/* ── Admin Horarios ──────────────────────────────── */
+
+.horarios-tabla {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.horario-fila {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.horario-num {
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+  width: 24px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.horario-localidad {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--texto);
+}
+
+.horario-input {
+  border: 1.5px solid var(--borde);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--texto);
+  background: white;
+  width: 120px;
+  font-weight: 500;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.horario-input:focus {
+  outline: none;
+  border-color: var(--verde-claro);
+}
+
+.horario-input::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  cursor: pointer;
+  filter: invert(30%) sepia(60%) saturate(400%) hue-rotate(100deg);
+}
+
+/* Botón de navegación activo */
+.btn-activo {
+  background: var(--borde);
+  font-weight: 600;
+}
+/* ── Admin header rediseñado ─────────────────────────────── */
+
+.admin-header {
+  background: var(--verde);
+  border-top: 4px solid #ffc107;
+  border-radius: 0 0 12px 12px;
+  padding: 16px 20px;
+  margin: -24px -16px 24px;   /* compensa el padding del .admin-panel */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Título amarillo en el header del panel */
+.admin-titulo--header {
+  color: #ffc107 !important;
+  font-size: 1.3rem;
+}
+
+/* Título amarillo en el login box */
+.admin-login-box {
+  border-top: 4px solid #ffc107;
+}
+
+.admin-titulo--login {
+  color: #ffc107 !important;
+}
+
+/* Botones del header sobre fondo verde */
+.admin-header .btn-cancelar {
+  color: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.admin-header .btn-cancelar:hover {
+  border-color: #ffc107;
+  color: #ffc107;
+}
+
+.admin-header .btn-cancelar.btn-activo {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+.admin-header .btn-aprobar {
+  background: #ffc107;
+  color: #1c1c1c;
+  font-weight: 700;
+  border: none;
+}
+
+.admin-header .btn-aprobar:hover {
+  background: #e6ac00;
 }

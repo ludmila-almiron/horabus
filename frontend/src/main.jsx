@@ -6,12 +6,10 @@ import AdminPanel from './components/AdminPanel.jsx'
 import './index.css'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/admin" element={<AdminPanel />} />
-      </Routes>
-    </BrowserRouter>
-  </StrictMode>,
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="/admin" element={<AdminPanel />} />
+    </Routes>
+  </BrowserRouter>,
 )
