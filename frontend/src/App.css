@@ -1128,10 +1128,64 @@ body {
   color: #ffc107 !important;
 }
 
-/* Botones del header sobre fondo verde */
+/* ══════════════════════════════════════════════════════════
+   Admin Panel — rediseño coherente con la página principal
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Neutraliza el place-items:center del body de index.css ─ */
+
+body:has(.admin-page),
+body:has(.admin-login) {
+  place-items: unset;
+  display: block;
+}
+
+/* ── Página completa ─────────────────────────────────────── */
+
+.admin-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--fondo);
+  width: 100%;
+}
+
+/* ── Header full width ───────────────────────────────────── */
+
+.admin-header {
+  width: 100%;
+  background: var(--verde);
+  border-top: 4px solid #ffc107;
+  border-radius: 0 0 14px 14px;
+  padding: 18px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.admin-titulo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffc107;
+}
+
+.admin-logo {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
+/* ── Botones del header sobre fondo verde ────────────────── */
+
 .admin-header .btn-cancelar {
   color: rgba(255, 255, 255, 0.85);
   border-color: rgba(255, 255, 255, 0.3);
+  background: transparent;
+  padding: 8px 16px;
 }
 
 .admin-header .btn-cancelar:hover {
@@ -1141,8 +1195,9 @@ body {
 
 .admin-header .btn-cancelar.btn-activo {
   background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.45);
   color: #fff;
+  font-weight: 600;
 }
 
 .admin-header .btn-aprobar {
@@ -1150,8 +1205,96 @@ body {
   color: #1c1c1c;
   font-weight: 700;
   border: none;
+  padding: 8px 16px;
 }
 
 .admin-header .btn-aprobar:hover {
   background: #e6ac00;
+}
+
+/* ── Contenido centrado ──────────────────────────────────── */
+
+.admin-panel {
+  max-width: 700px;
+  width: 100%;
+  margin: 32px auto;
+  padding: 0 16px 48px;
+  flex: 1;
+}
+
+/* ── Secciones con tarjeta ───────────────────────────────── */
+
+.admin-seccion {
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.admin-subtitulo {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--verde);
+  margin-bottom: 14px;
+}
+
+/* ── Tarjetas de aviso ───────────────────────────────────── */
+
+.admin-aviso-item {
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-aviso-item:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Login ───────────────────────────────────────────────── */
+
+.admin-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fondo);
+}
+
+.admin-login-box {
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-top: 4px solid #ffc107;
+  border-radius: 12px;
+  padding: 32px;
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--sombra);
+}
+
+.admin-login-box .admin-titulo {
+  color: #ffc107;
+  font-size: 1.4rem;
+}
+
+/* ── Footer igual al de la página principal ──────────────── */
+
+.admin-footer {
+  background: var(--verde);
+  color: var(--lima);
+  text-align: center;
+  font-size: 0.78rem;
+  padding: 14px 16px;
+  opacity: 0.9;
 }

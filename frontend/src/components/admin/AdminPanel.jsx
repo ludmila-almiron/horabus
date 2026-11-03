@@ -5,8 +5,7 @@ import AdminAvisos from './AdminAvisos'
 import AdminAvisoForm from './AdminAvisoForm'
 import AdminHistorial from './AdminHistorial'
 import AdminHorarios from './AdminHorarios'
-
-// vista activa: 'avisos' | 'historial' | 'horarios'
+import logoAdmin from '../../pictures/Horabus Admin.png'
 
 export default function AdminPanel() {
   const [password, setPassword] = useState(() => sessionStorage.getItem('admin_pw') || '')
@@ -16,12 +15,11 @@ export default function AdminPanel() {
 
   const [avisos, setAvisos] = useState([])
   const [historial, setHistorial] = useState([])
-  const [vista, setVista] = useState('avisos')  // no persiste: siempre arranca en 'avisos'
+  const [vista, setVista] = useState('avisos')
 
   const [editando, setEditando] = useState(null)
   const [esNuevo, setEsNuevo] = useState(false)
 
-  // Cargar avisos al montar si ya hay sesión
   useEffect(() => {
     if (!autenticado) return
     const pw = sessionStorage.getItem('admin_pw')
@@ -143,7 +141,7 @@ export default function AdminPanel() {
     return (
       <div className="admin-login">
         <div className="admin-login-box">
-          <h1 className="admin-titulo admin-titulo--login">Horabus Admin</h1>
+          <img src={logoAdmin} alt="Horabus Admin" className="admin-logo" />
           <div className="form-grupo">
             <label className="form-label">Contraseña</label>
             <input
@@ -179,14 +177,14 @@ export default function AdminPanel() {
 
   // ── Panel principal ────────────────────────────────────────────────────────
   return (
-    <div className="admin-panel">
+    <div className="admin-page">
       <header className="admin-header">
-        <h1 className="admin-titulo admin-titulo--header">Horabus Admin</h1>
-        <div style={{ display: 'flex', gap: 8 }}>
+        <img src={logoAdmin} alt="Horabus Admin" className="admin-logo" />
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           <button className="btn-aprobar" onClick={abrirNuevo}>+ Nuevo aviso</button>
           <button
-            className={`btn-cancelar${vista === 'avisos' ? '' : ' btn-activo'}`}
-            onClick={() => vista !== 'avisos' ? setVista('avisos') : null}
+            className={`btn-cancelar${vista === 'avisos' ? ' btn-activo' : ''}`}
+            onClick={() => setVista('avisos')}
           >
             📋 Avisos
           </button>
@@ -206,28 +204,34 @@ export default function AdminPanel() {
         </div>
       </header>
 
-      {vista === 'avisos' && (
-        <AdminAvisos
-          avisos={avisos}
-          onAprobar={aprobar}
-          onRechazar={rechazar}
-          onEliminar={eliminar}
-          onEditar={abrirEdicion}
-        />
-      )}
+      <div className="admin-panel">
+        {vista === 'avisos' && (
+          <AdminAvisos
+            avisos={avisos}
+            onAprobar={aprobar}
+            onRechazar={rechazar}
+            onEliminar={eliminar}
+            onEditar={abrirEdicion}
+          />
+        )}
 
-      {vista === 'historial' && (
-        <AdminHistorial
-          historial={historial}
-          onRestaurar={restaurar}
-          onEditar={abrirEdicion}
-          onVolver={() => setVista('avisos')}
-        />
-      )}
+        {vista === 'historial' && (
+          <AdminHistorial
+            historial={historial}
+            onRestaurar={restaurar}
+            onEditar={abrirEdicion}
+            onVolver={() => setVista('avisos')}
+          />
+        )}
 
-      {vista === 'horarios' && (
-        <AdminHorarios llamarFuncion={llamarFuncion} />
-      )}
+        {vista === 'horarios' && (
+          <AdminHorarios llamarFuncion={llamarFuncion} />
+        )}
+      </div>
+
+      <footer className="admin-footer">
+        Horabus Admin · Misiones
+      </footer>
     </div>
   )
 }
