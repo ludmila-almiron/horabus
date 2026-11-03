@@ -225,8 +225,9 @@ export default function NuevoAvisoModal({ onClose, onCreado }) {
       imagen_url = urlData.publicUrl
     }
 
+    // Todos los tipos caducan a las 12 horas
     const ahora = new Date()
-    const caduca_at = esOtro ? null : new Date(ahora.getTime() + 12 * 60 * 60 * 1000).toISOString()
+    const caduca_at = new Date(ahora.getTime() + 12 * 60 * 60 * 1000).toISOString()
 
     const { error: err } = await supabase.from('avisos').insert({
       tipo,

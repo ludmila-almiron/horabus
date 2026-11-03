@@ -23,7 +23,18 @@ const EMPRESAS = [
   { nombre: 'Kruse' },
 ]
 
-const AVISO_VACIO = { tipo: 'otro', descripcion: '', empresa: '', aprobado: true, activo: true }
+// Devuelve el datetime local en formato "YYYY-MM-DDThh:mm" para usar en input datetime-local
+function fechaLocalInput(date) {
+  const d = new Date(date)
+  const pad = n => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`
+}
+
+function defaultCaducaAt() {
+  return fechaLocalInput(new Date(Date.now() + 12 * 60 * 60 * 1000))
+}
+
+const AVISO_VACIO = { tipo: 'otro', descripcion: '', empresa: '', aprobado: true, activo: true, caduca_at: defaultCaducaAt() }
 
 export default function AdminPanel() {
   const [password, setPassword] = useState('')
@@ -225,14 +236,17 @@ export default function AdminPanel() {
   }
 
   const abrirEdicion = (aviso) => {
-    setEditando({ ...aviso })
+    setEditando({
+      ...aviso,
+      caduca_at: aviso.caduca_at ? fechaLocalInput(aviso.caduca_at) : defaultCaducaAt(),
+    })
     setEsNuevo(false)
     setErrorForm('')
     resetFormExtra()
   }
 
   const abrirNuevo = () => {
-    setEditando({ ...AVISO_VACIO })
+    setEditando({ ...AVISO_VACIO, caduca_at: defaultCaducaAt() })
     setEsNuevo(true)
     setErrorForm('')
     resetFormExtra()
@@ -297,6 +311,11 @@ export default function AdminPanel() {
     // Si se quitó la imagen
     if (!permiteImagen) imagen_url = null
 
+    // Convertir caduca_at del input local a ISO string UTC
+    const caduca_at = editando.caduca_at
+      ? new Date(editando.caduca_at).toISOString()
+      : new Date(Date.now() + 12 * 60 * 60 * 1000).toISOString()
+
     const data = await llamarFuncion({
       accion: esNuevo ? 'crear' : 'editar',
       id: editando.id,
@@ -307,6 +326,7 @@ export default function AdminPanel() {
         imagen_url,
         aprobado: esNuevo ? true : editando.aprobado,
         activo: editando.activo,
+        caduca_at,
       },
     })
     setGuardando(false)
@@ -422,6 +442,17 @@ export default function AdminPanel() {
               value={editando.descripcion || ''}
               onChange={e => setEditando(prev => ({ ...prev, descripcion: e.target.value }))}
               maxLength={400}
+            />
+          </div>
+
+          {/* Fecha de caducidad */}
+          <div className="form-grupo">
+            <label className="form-label">Caduca el (opcional, por defecto 12 h)</label>
+            <input
+              type="datetime-local"
+              className="admin-input"
+              value={editando.caduca_at || ''}
+              onChange={e => setEditando(prev => ({ ...prev, caduca_at: e.target.value }))}
             />
           </div>
 

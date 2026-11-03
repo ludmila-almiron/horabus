@@ -32,6 +32,8 @@ export default function AvisosModal({ onClose }) {
     const { data } = await supabase
       .from('avisos')
       .select('*')
+      .eq('activo', true)
+      .eq('aprobado', true)
       .order('created_at', { ascending: false })
     setAvisos(data || [])
     setCargando(false)
