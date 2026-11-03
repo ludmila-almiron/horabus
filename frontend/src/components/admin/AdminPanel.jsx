@@ -5,7 +5,7 @@ import AdminAvisos from './AdminAvisos'
 import AdminAvisoForm from './AdminAvisoForm'
 import AdminHistorial from './AdminHistorial'
 import AdminHorarios from './AdminHorarios'
-import logoAdmin from '../../pictures/Horabus Admin.png'
+import logoAdmin from '../../pictures/horabus admin.png'
 
 export default function AdminPanel() {
   const [password, setPassword] = useState(() => sessionStorage.getItem('admin_pw') || '')
